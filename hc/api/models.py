@@ -152,7 +152,7 @@ class Channel(models.Model):
 
     def assign_all_checks(self):
         checks = Check.objects.filter(user=self.user)
-        self.checks.add(*checks)
+        self.checks.add(*checks) 
 
     def make_token(self):
         seed = "%s%s" % (self.code, settings.SECRET_KEY)
