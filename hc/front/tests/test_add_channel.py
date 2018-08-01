@@ -37,5 +37,13 @@ class AddChannelTestCase(BaseTestCase):
             r = self.client.get(url)
             self.assertContains(r, "Integration Settings", status_code=200)
 
+
+    def test_team_access_works(self):
+        url = "/checks/%s/" % self.check.code
+        # Logging in as bob, not alice. Bob has team access so this
+        self.client.login(username="bob@example.org", password="password")
+        r = self.client.get(url)
+        self.assertEqual(r.status_code, 200)
+
     ### Test that the team access works
     ### Test that bad kinds don't work
