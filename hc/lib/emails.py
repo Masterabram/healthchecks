@@ -1,11 +1,22 @@
-from django.conf import settings
-from djmail.template_mail import InlineCSSTemplateMail
+import smtplib
+
+server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+
+def login_gmail(gamil_user, gmail_user_password):
+
+    try:
+        server.ehlo()
+        server.login(gamil_user, gmail_user_password)
+        return server
+    except:
+        return "Invalid credentials"
 
 
-def send(name, to, ctx):
-    o = InlineCSSTemplateMail(name)
-    ctx["SITE_ROOT"] = settings.SITE_ROOT
-    o.send(to, ctx)
+
+def send(name, to, body):
+    sent_from = "abramogol@gmail.com"
+    login_gmail(sent_from, "Mcogol12.")
+    server.sendmail(sent_from, to, body)
 
 
 def login(to, ctx):
